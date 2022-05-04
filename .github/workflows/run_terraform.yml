@@ -15,8 +15,6 @@ env:
   BACKEND_ROLE_ARN: ${{ secrets.BACKEND_ROLE_ARN }}
   BACKEND_BUCKET: ${{ secrets.BACKEND_BUCKET }}
   BACKEND_DYNAMO_DB: ${{ secrets.BACKEND_DYNAMODB_TABLE }}
-  TF_VAR_papertrail_addr: ${{ secrets.PAPERTRAIL_ADDR }}
-  TF_VAR_papertrail_port: ${{ secrets.PAPERTRAIL_PORT }}
 
 jobs:
   terraform:
