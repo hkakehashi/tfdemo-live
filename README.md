@@ -52,14 +52,20 @@ The two live services hosted in this repo both use the Terraform modules from [t
 
 - Workflow dispatch
 
-  - Run `terraform plan` when the workflow is manually triggered with "plan" as input
-  - Run `terraform apply` when the workflow is manually triggered with "apply" as input
+  - Deploy cert/prod/stage workflows
+
+    - Run `terraform plan` when the workflow is manually triggered with `plan` as input
+    - Run `terraform apply` when the workflow is manually triggered with `apply` as input
+
+  - Cleanup workflow
+
+    - Run `terraform destroy`
 
 ### Working directory
 
 The set of Terraform commands are executed in one or a combination of the following directories, depending on where the changes were made:
 
-- `global/cert/`
+- `global/cert`
 - `prod/service`
 - `stage/service`
 
