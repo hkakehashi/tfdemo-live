@@ -1,4 +1,4 @@
-# Terraform Demo<br>Example Repository for Prod/Stage Environments
+# Fastly - Terraform Demo<br>Example Repository for Prod/Stage Environments
 
 This repo includes:
 
