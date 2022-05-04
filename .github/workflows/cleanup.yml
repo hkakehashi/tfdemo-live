@@ -1,0 +1,58 @@
+name: "Cleanup"
+
+on:
+  workflow_dispatch:
+    inputs:
+      working-directory:
+        description: "working-directory"
+        required: true
+        type: choice
+        options:
+          - cert
+          - service/prod
+          - service/stage
+
+env:
+  TF_LOG: INFO
+  FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  BACKEND_ROLE_ARN: ${{ secrets.BACKEND_ROLE_ARN }}
+  BACKEND_BUCKET: ${{ secrets.BACKEND_BUCKET }}
+  BACKEND_DYNAMO_DB: ${{ secrets.BACKEND_DYNAMODB_TABLE }}
+
+jobs:
+  terraform:
+    name: "Cleanup"
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Set the working directory to main for the config files
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.event.inputs.working-directory }}
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Install the preferred version of Terraform CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.1.9
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        id: init
+        run: >
+          terraform init
+          -backend-config="role_arn=$BACKEND_ROLE_ARN"
+          -backend-config="bucket=$BACKEND_BUCKET"
+          -backend-config="dynamodb_table=$BACKEND_DYNAMODB_TABLE"
+
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve
