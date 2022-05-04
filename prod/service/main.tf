@@ -7,7 +7,7 @@ terraform {
 }
 
 module "service" {
-  source          = "github.com/hkakehashi/tfdemo-modules//service?ref=v1.0.3"
+  source          = "github.com/hkakehashi/tfdemo-modules//service?ref=v1.0.4"
   domain          = "tfdemo-prod.hkakehas.tokyo"
   papertrail_addr = "xxx.papertrailapp.com"
   papertrail_port = 12345
