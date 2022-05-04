@@ -7,8 +7,8 @@ terraform {
 }
 
 module "service" {
-  source     = "github.com/hkakehashi/tfdemo-modules//service?ref=v1.0.3"
-  domain          = "tfdemo-prod.hkakehas.tokyo"
+  source = "github.com/hkakehashi/tfdemo-modules//service?ref=v1.0.3"
+  domain = "tfdemo-prod.hkakehas.tokyo"
 }
 
 output "domain" {
