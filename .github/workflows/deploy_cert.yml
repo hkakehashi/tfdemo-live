@@ -16,3 +16,4 @@ jobs:
     uses: ./.github/workflows/terraform.yml
     with:
       working-directory: cert
+    secrets: inherit
