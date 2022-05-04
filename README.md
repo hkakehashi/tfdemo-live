@@ -6,7 +6,7 @@ This repo includes:
 - Terraform code to deploy certificates for the prod/stage domains
 - GitHub Actions workflows to manage the deployment tasks
 
-Terraform resources are deployed using Terraform modules in [the modules repo](https://github.com/hkakehashi/tfdemo-modules).　
+The two live services hosted in this repo both use the Terraform modules from [the modules repo](https://github.com/hkakehashi/tfdemo-modules), but in different versions using the module source `ref` argument.
 
 **Image of the file structure**
 
