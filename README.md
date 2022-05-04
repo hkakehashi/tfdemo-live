@@ -1,4 +1,4 @@
-# Fastly - Terraform Demo<br>Example Repository for Prod/Stage Environments
+# Fastly - Terraform Demo<br>Example Repository for Live Environments
 
 This repo includes:
 
@@ -6,7 +6,37 @@ This repo includes:
 - Terraform code to deploy certificates for the prod/stage domains
 - GitHub Actions workflows to manage the deployment tasks
 
-Terraform resources are deployed using Terraform modules in [the module repo](https://github.com/hkakehashi/tfdemo-modules).　
+Terraform resources are deployed using Terraform modules in [the modules repo](https://github.com/hkakehashi/tfdemo-modules).　
+
+**Image of the file structure**
+
+```
+├── live                      <------------------ This repository
+│   ├── cert
+│   │   ├── main.tf
+│   │   └── provider.tf
+│   └── service
+│       ├── prod              <------------------ Using v1.0.0 (Minimal configuration)
+│       │   ├── main.tf
+│       │   └── provider.tf
+│       └── stage             <------------------ Using v1.1.0 (Additional features enabled)
+│           ├── main.tf
+│           └── provider.tf
+└── modules
+    ├── cert
+    │   ├── main.tf
+    │   ├── output.tf
+    │   ├── provider.tf
+    │   └── variables.tf
+    └── service
+        ├── main.tf
+        ├── output.tf
+        ├── provider.tf
+        ├── variables.tf
+        └── vcl
+            ├── main.vcl
+            └── snippet.vcl
+```
 
 ## Github Actions workflow
 
