@@ -12,16 +12,15 @@ The two live services hosted in this repo both use the Terraform modules from [t
 
 ```
 ├── live                      <------------------ This repository
-│   ├── cert
-│   │   ├── main.tf
-│   │   └── provider.tf
-│   └── service
-│       ├── prod              <------------------ Using v1.0.0 (Minimal configuration)
-│       │   ├── main.tf
-│       │   └── provider.tf
-│       └── stage             <------------------ Using v1.1.0 (Additional features enabled)
-│           ├── main.tf
-│           └── provider.tf
+│   ├── global
+│   │   └── cert
+│   │       └── main.tf
+│   ├── prod                  <------------------ Using v1.0.0 (Minimal configuration)
+│   │   └── service
+│   │       └── main.tf
+│   └── stage                 <------------------ Using v1.1.0 (Additional features enabled)
+│       └── service
+│           └── main.tf
 └── modules
     ├── cert
     │   ├── main.tf
@@ -53,16 +52,16 @@ The two live services hosted in this repo both use the Terraform modules from [t
 
 - Workflow dispatch
 
-  - Run `terraform plan` when the workflow is manually triggered on a non-main branch
-  - Run `terraform apply` when the workflow is manually triggered on the main branch
+  - Run `terraform plan` when the workflow is manually triggered with "plan" as input
+  - Run `terraform apply` when the workflow is manually triggered with "apply" as input
 
 ### Working directory
 
 The set of Terraform commands are executed in one or a combination of the following directories, depending on where the changes were made:
 
-- `cert/`
-- `service/prod/`
-- `service/stage/`
+- `global/cert/`
+- `prod/service`
+- `stage/service`
 
 ## Environment variables
 

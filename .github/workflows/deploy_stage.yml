@@ -4,16 +4,25 @@ on:
   push:
     branches: [main]
     paths:
-      - "service/stage/**"
+      - "stage/service/**"
   pull_request:
     branches: [main]
     paths:
-      - "service/stage/**"
+      - "stage/service/**"
   workflow_dispatch:
+    inputs:
+      command:
+        description: "Terraform command to run"
+        type: choice
+        options:
+          - plan
+          - apply
 
 jobs:
   run-terraform:
     uses: ./.github/workflows/run_terraform.yml
     with:
-      working-directory: service/stage
+      working-directory: stage/service
+    with:
+      command: ${{ github.event.inputs.command }}
     secrets: inherit

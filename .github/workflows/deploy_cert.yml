@@ -4,16 +4,25 @@ on:
   push:
     branches: [main]
     paths:
-      - "cert/**"
+      - "global/cert/**"
   pull_request:
     branches: [main]
     paths:
-      - "cert/**"
+      - "global/cert/**"
   workflow_dispatch:
+    inputs:
+      command:
+        description: "Terraform command to run"
+        type: choice
+        options:
+          - plan
+          - apply
 
 jobs:
   run-terraform:
     uses: ./.github/workflows/run_terraform.yml
     with:
-      working-directory: cert
+      working-directory: global/cert
+    with:
+      command: ${{ github.event.inputs.command }}
     secrets: inherit

@@ -6,6 +6,9 @@ on:
       working-directory:
         required: true
         type: string
+      command:
+        required: true
+        type: string
 
 env:
   TF_LOG: INFO
@@ -58,10 +61,10 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      # Run a terraform plan for pull requests and workflow_dispatch to a non-main branch
+      # Run terraform plan triggered by PR or workflow_dispatch with "plan" as input
       - name: terraform plan
         id: plan
-        if: github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && github.event_name == 'workflow_dispatch')
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.command == 'plan')
         run: terraform plan -no-color
 
       # Add a comment to pull requests with plan results
@@ -94,7 +97,7 @@ jobs:
               body: output
             })
 
-        # On push/workflow_dispatch to main, build or change infrastructure according to Terraform configuration files
+      # Run terraform apply triggered by push/merge or workflow_dispatch with "apply" as input
       - name: terraform apply
-        if: github.event_name == 'push' || (github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch')
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.command == 'apply')
         run: terraform apply -auto-approve

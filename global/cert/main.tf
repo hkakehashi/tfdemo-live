@@ -6,12 +6,12 @@ terraform {
   backend "s3" {
     region  = "ap-northeast-1"
     encrypt = true
-    key     = "tfdemo/cert"
+    key     = "tfdemo/global/cert"
   }
 }
 
 module "cert" {
-  source     = "github.com/hkakehashi/tfdemo-modules//cert?ref=v1.0.3"
+  source     = "github.com/hkakehashi/tfdemo-modules//cert?ref=v1.1.0"
   domains    = ["tfdemo-prod.hkakehas.tokyo", "tfdemo-stage.hkakehas.tokyo"]
   dns_zone   = "hkakehas.tokyo"
   tls_config = "HTTP/3 & TLS v1.3"

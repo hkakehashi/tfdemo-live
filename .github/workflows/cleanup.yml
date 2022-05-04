@@ -5,12 +5,11 @@ on:
     inputs:
       working-directory:
         description: "working-directory"
-        required: true
         type: choice
         options:
-          - cert
-          - service/prod
-          - service/stage
+          - global/cert
+          - prod/service
+          - stage/service
 
 env:
   TF_LOG: INFO
