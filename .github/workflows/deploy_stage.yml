@@ -23,6 +23,5 @@ jobs:
     uses: ./.github/workflows/run_terraform.yml
     with:
       working-directory: stage/service
-    with:
       command: ${{ github.event.inputs.command }}
     secrets: inherit
