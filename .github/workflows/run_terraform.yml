@@ -42,12 +42,10 @@ jobs:
         with:
           terraform_version: 1.1.9
 
-      # Run a terraform fmt
       - name: terraform fmt
         id: fmt
         run: terraform fmt -check -recursive
 
-      # Initialize a new or existing Terraform working directory
       - name: terraform init
         id: init
         run: >
@@ -56,7 +54,6 @@ jobs:
           -backend-config="bucket=$BACKEND_BUCKET"
           -backend-config="dynamodb_table=$BACKEND_DYNAMODB_TABLE"
 
-      # Run a terraform validate
       - name: terraform validate
         id: validate
         run: terraform validate -no-color
