@@ -1,4 +1,4 @@
-name: "Terraform"
+name: "Run Terraform"
 
 on:
   workflow_call:
@@ -15,12 +15,13 @@ env:
   BACKEND_ROLE_ARN: ${{ secrets.BACKEND_ROLE_ARN }}
   BACKEND_BUCKET: ${{ secrets.BACKEND_BUCKET }}
   BACKEND_DYNAMO_DB: ${{ secrets.BACKEND_DYNAMODB_TABLE }}
+  TF_VAR_papertrail_addr: ${{ secrets.PAPERTRAIL_ADDR }}
+  TF_VAR_papertrail_port: ${{ secrets.PAPERTRAIL_PORT }}
 
 jobs:
-  Terraform:
+  terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.ref == 'refs/heads/main' && github.event_name == 'push')
 
     # Use the Bash shell
     # Set the working directory according to the input passed from the caller workflow
@@ -63,9 +64,7 @@ jobs:
       - name: terraform plan
         id: plan
         if: github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && github.event_name == 'workflow_dispatch')
-        run: >
-          terraform plan -no-color
-          -var-file="input.tfvars"
+        run: terraform plan -no-color
 
       # Add a comment to pull requests with plan results
       - name: add-plan-comment
@@ -99,7 +98,5 @@ jobs:
 
         # On push/workflow_dispatch to main, build or change infrastructure according to Terraform configuration files
       - name: terraform apply
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-        run: >
-          terraform apply -auto-approve
-          -var-file="input.tfvars"
+        if: github.event_name == 'push' || (github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch')
+        run: terraform apply -auto-approve

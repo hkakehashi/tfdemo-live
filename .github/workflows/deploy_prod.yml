@@ -1,19 +1,19 @@
-name: "Deploy cert"
+name: "Deploy prod"
 
 on:
   push:
     branches: [main]
     paths:
-      - "cert/**"
+      - "service/prod/**"
   pull_request:
     branches: [main]
     paths:
-      - "cert/**"
+      - "service/prod/**"
   workflow_dispatch:
 
 jobs:
   run-terraform:
     uses: ./.github/workflows/run_terraform.yml
     with:
-      working-directory: cert
+      working-directory: service/prod
     secrets: inherit
