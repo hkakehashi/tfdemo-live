@@ -8,7 +8,7 @@ This repo includes:
 
 The two live services hosted in this repo both use the Terraform modules from [the modules repo](https://github.com/hkakehashi/tfdemo-modules), but in different versions using the module source `ref` argument.
 
-**Image of the file structure**
+**Image of the file and directory layout**
 
 ```
 ├── live                      <------------------ This repository
