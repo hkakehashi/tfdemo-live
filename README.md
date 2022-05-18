@@ -38,7 +38,7 @@ The two live services hosted in this repo both use the Terraform modules from [t
 ```
 
 **Development workflow image**
-![devworkflow](https://user-images.githubusercontent.com/30490956/168985990-6fa0db89-6077-4b74-bd93-e762478a089a.jpg)
+![devworkflow](https://user-images.githubusercontent.com/30490956/169046058-672f7b73-957e-4c27-acb3-49a45e1da7ab.jpg)
 
 ## Github Actions workflow
 
