@@ -8,9 +8,9 @@ terraform {
 
 module "service" {
   source          = "github.com/hkakehashi/tfdemo-modules//service?ref=v1.0.4"
-  domain          = "tfdemo-prod.hkakehas.tokyo"
-  papertrail_addr = "xxx.papertrailapp.com"
-  papertrail_port = 12345
+  domain          = "tfdemo-prod.hrmsk66.com"
+  papertrail_addr = "logs.papertrailapp.com"
+  papertrail_port = 37952
 }
 
 output "domain" {
